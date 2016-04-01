@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单的时钟</title>
+    <link rel="stylesheet" href="style/analyze.css">
+    <style>
+        #container { text-align: center;font-size: 200px;font-weight: 800}
+    </style>
+    <script src="../node_modules/react/dist/react.js"></script>
+    <script src="../node_modules/react-dom/dist/react-dom.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script>
+
+    /* 简单的时钟 */
+
+
+    var Time = React.createClass({
+        render: function () {
+            var time = this.props.time;
+            return React.DOM.p(null, time);
+        }
+    });
+
+    var firstApp = React.createFactory(Time);
+
+    setInterval(function () {
+        ReactDOM.render(
+                firstApp({time: new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()}),
+                document.getElementById('container')
+        );
+    }, 30);
+
+    analyze(React,null,'React');
+    analyze(ReactDOM,null,'ReactDOM');
+
+    /*
+    * 分析一个对象或函数
+    * @Param {Function/Object} obj
+    * @Param {DOMElement} container 可选，默认body
+    * @Param {String} name 分析的对象名称
+    * */
+    function analyze(obj, container, name){
+        var temp = '<dl>';
+
+        name = name ? name : '';
+
+        temp += '<dt>'+ name +'对象方法:</dt>';
+        for(var k in obj){
+            if(typeof obj[k] === 'function'){
+                temp += '<dd class="function">' + k + '</dd>'
+            }else{
+                temp += '<dd class="attributes">'+ k + '===============' + typeof obj[k]  + '</dd>'
+            }
+        }
+
+        temp += '<dt>'+ name +'原型:</dt>';
+        for(var k in obj.prototype){
+            if(typeof obj[k] === 'function'){
+                temp += '<dd class="function">' +  k + '</dd>'
+            }else{
+                temp += '<dd class="attributes">' + k + '===============' + '</dd>'
+            }
+        }
+
+        container = container ? container : document.body;
+        container.innerHTML += temp;
+    }
+
+</script>
+</body>
+
+</html>

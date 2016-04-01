@@ -1,0 +1,5 @@
+* { margin: 0; padding: 0;}
+dd {list-style: none; margin-top: 3px;}
+body { padding: 20px;}
+.function::before {content: 'F'; color: #fff; width: 16px; height: 20px; background: #ff0000; margin-right: 5px; display: inline-block; text-align: center;}
+.attributes::before {content: 'A'; color: #fff; width: 16px; height: 20px; background: #13A713;margin-right: 5px; display: inline-block; text-align: center;}
