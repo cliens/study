@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #container { text-align: center;font-size: 200px;font-weight: 800}
+    </style>
+    <script src="../node_modules/react/dist/react.js"></script>
+    <script src="../node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+
+</head>
+<body>
+<div id="container"></div>
+<p>
+<pre>
+    <h2>Tips:</h2>
+    1. 需要使用browser.js对jsx进行转换
+    2. script标签需要设置类型：<b>type="text/babel"</b>
+</pre>
+</p>
+<script type="text/babel">
+
+    /* 简单的时钟 */
+
+
+    var Time = React.createClass({
+        render: function () {
+            var time = this.props.time;
+            return <p>{time}</p>;
+        }
+    });
+
+    setInterval(function () {
+        ReactDOM.render(
+                <Time time={new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()} />,
+                document.getElementById('container')
+        );
+    }, 30);
+
+
+</script>
+</body>
+</html>
