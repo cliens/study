@@ -1,0 +1,7 @@
+# Repository -- https://github.com/cliens/study.git --
+
+# Directories
+/node_modules
+
+# Files
+*.log

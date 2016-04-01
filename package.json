@@ -1,0 +1,23 @@
+{
+  "name": "study",
+  "version": "1.0.0",
+  "description": "学习的记录，便于移动学习和做总结",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cliens/study.git"
+  },
+  "keywords": [
+    "学习",
+    "react"
+  ],
+  "author": "cliens",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cliens/study/issues"
+  },
+  "homepage": "https://github.com/cliens/study#readme"
+}
