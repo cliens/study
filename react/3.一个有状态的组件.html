@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3. 一个有状态的组件</title>
+    <style>
+        #container { text-align: center;font:100px 微软雅黑; border:1px solid #eee;}
+    </style>
+    <script src="./js/analyze.js"></script>
+    <link rel="stylesheet" href="./style/analyze.css">
+
+    <script src="../node_modules/react/dist/react.js"></script>
+    <script src="../node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+
+</head>
+<body>
+<div id="container"></div>
+<pre id="analyzeBox">
+</pre>
+
+
+<script type="text/babel">
+
+    var Timer = React.createClass({
+        getInitialState: function() {   // 设置state初始值
+            return {second: 0}
+        },
+        tick: function() {
+            this.setState({second: this.state.second + 1});
+        },
+        componentDidMount: function() {    // 组件加载完毕触发
+            this.timerId = setInterval(this.tick, 1000);
+            analyze(this.__proto__,document.getElementById('analyzeBox'),'Component.__proto__');
+        },
+        componentWillUnmount: function() {  // 组件移除前触发
+            clearInterval(this.timerId)
+        },
+        render: function() {
+            return <p>登陆时长：{this.state.second}s</p>
+        }
+    });
+    
+    ReactDOM.render(<Timer/>, document.getElementById('container'));
+
+</script>
+</body>
+</html>
