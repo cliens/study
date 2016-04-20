@@ -15,6 +15,7 @@
 - [react入门教程](http://www.runoob.com/w3cnote/getting-started-with-react.html)
 - [react教程 --极客学院](http://wiki.jikexueyuan.com/list/react/)
 - [react资源汇总 --Eric Wong](https://github.com/ele828/react-native-guide)
+- [react diff的算法 --题叶, JiyinYiyong](https://segmentfault.com/a/1190000000606216)
 
 #### 视频
 - [React入门 -- 慕课网](http://www.imooc.com/learn/504)
