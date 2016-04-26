@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #container { text-align: center;font-size: 200px;font-weight: 800}
+    </style>
+    <script src="../node_modules/react/dist/react.js"></script>
+    <script src="../node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+
+</head>
+<body>
+<div id="container"></div>
+<pre>
+    <h2>练习概要:</h2>
+    1. 使用React创建一个简单TODO应用
+    2. 进一步熟悉事件绑定和state操作
+    3. 列表项的唯一key
+    <h2>issue:</h2>
+    1. state不可直接改变，如此例，如果将concat换成push，将会出错
+</pre>
+
+<div id="todoApp-wrap">
+
+</div>
+
+
+<script type="text/babel">
+
+    var TodoList = React.createClass({
+
+        render: function() {
+            var createItem = function(item) {
+                return <li key={item.key}>{item.text}</li>;
+            };
+            return <ul>{this.props.items.map(createItem)}</ul>;
+        }
+
+    });
+
+    var TodoApp = React.createClass({
+
+        getInitialState: function () {
+            return {
+                items: [],
+                text: ''
+            }
+        },
+        handleChange: function(ev) {
+          this.setState({text: ev.target.value});
+        },
+        handleEnterDown: function(ev) {
+            if(ev.keyCode === 13){
+                this.handleSubmit();
+            }
+        },
+        handleSubmit: function(ev) {
+            this.setState({
+                items: this.state.items.concat([{text: this.state.text, key:Date.now()}]),  // #issue 1
+                text: ''
+            });
+
+        },
+        render: function() {
+            return (
+                    <div>
+                            <h2>TODO</h2>
+                            <TodoList items={this.state.items} />
+                            <input onChange={this.handleChange} onKeyDown={this.handleEnterDown} value={this.state.text}/>
+                            <button onClick={this.handleSubmit}> {'添加'}</button>
+                    </div>
+            );
+
+        }
+
+    });
+
+    ReactDOM.render(<TodoApp />, document.getElementById('todoApp-wrap'));
+
+</script>
+
+</body>
+</html>
