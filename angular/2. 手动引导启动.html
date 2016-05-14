@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="helloDemo">
+    hello,{{msg}}!
+</div>
+</body>
+<script src="../node_modules/angular/angular.js"></script>
+</html>
+<script>
+
+    var demoApp = angular.module('demo',[]);
+    demoApp.controller('helloDemo',['$scope', function($scope) {
+        $scope.msg = 'angular(manual bootstrap)'
+    }]);
+
+    angular.element(document).ready(function() {
+        angular.bootstrap(document.body,['demo'])
+    })
+</script>
