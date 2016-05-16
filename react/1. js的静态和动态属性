@@ -1,0 +1,43 @@
+/**
+ * Created by hk61 on 2016/4/29.
+ */
+
+var fruit = function() {
+    this.price = 20;    // 动态属性
+};
+
+fruit.prototype.setCount = function(count) {
+    this.count = count;
+};
+
+fruit.prototype.getCount = function(count) {
+    return this.count;
+};
+
+// 静态方法
+fruit.getCount = function() {
+    return this.count;
+    // doSomething 
+};
+
+// 静态方法
+fruit.color = 'green';
+
+
+var count = fruit.getCount();   // undefined, 静态方法  log(this)=>  { [Function] getCount: [Function], color: 'green' }
+
+var apple = new fruit();
+apple.setCount(5);
+
+var fruitCount = fruit.getCount();  // undefined log(this)=>  { [Function] getCount: [Function], color: 'green' }
+var appleCount = apple.getCount();  // 5
+
+// fruit.setCount(10);    // Error
+console.log("fruit.__proto__为: %s", fruit.__proto__);   // fruit.__proto__为: function () {}
+console.log('apple.prototype为: %s', apple.prototype);   // undefined
+/*
+ * 理解：函数也是对象。
+ *      原型方法和属性，属于实例所有。 函数则不可访问；
+ *      函数才有prototype, 实例对象则没有。它们都有__proto__
+ *
+ * */

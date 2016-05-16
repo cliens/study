@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/cliens/study#readme",
   "dependencies": {
+    "angular": "^1.4.8",
     "react": "^0.14.8",
     "react-dom": "^0.14.8"
   }
