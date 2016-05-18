@@ -12,7 +12,45 @@
 <script src="../node_modules/angular/angular.js"></script>
 </html>
 <script>
-    angular.module('demo',[]).controller('helloDemo',['$scope', function($scope) {
-        $scope.msg = 'angular'
+    var demoModule = angular.module('demo',[]);
+    console.log('module对象', demoModule);
+    demoModule.controller('helloDemo',['$scope', function($scope) {
+        $scope.msg = 'angular';
+        debugger;   // 3
     }])
+            .provider('hello', function() { // 1
+                debugger;
+                this.name = 'hello';
+                this.$get = function(){
+                    console.log('HelloProvider');
+                }
+            })
+            .config(function() {    // 2
+                debugger;
+            })
+            .constant('helloConstant', function() {
+                debugger;
+            })
+            .decorator('hello', function(){
+                // 必须是存在的provider, 这里的名字只能写hello
+                debugger;
+            })
+            .directive('helloDirective', function(){
+                debugger;
+            })
+            .factory('helloFactory', function(){
+                debugger;
+            })
+//            .filter('helloFilter', function() {
+//                debugger;
+//            })
+//            .requires
+//            ['helloRequires']
+            .service('helloService', function() {
+                debugger;
+            })
+            .value(function(){
+                debugger;
+            })
+
 </script>
