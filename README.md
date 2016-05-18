@@ -5,7 +5,7 @@
 ### 现有学习内容包括：
 
 - **React**
-
+- **Angular**
 
 ## React学习资源
 
@@ -21,3 +21,10 @@
 #### 视频
 - [React入门 -- 慕课网](http://www.imooc.com/learn/504)
 - [React中文基础视频教程 -- 爱酷学](http://www.icoolxue.com/album/show/262)
+
+
+## Angular学习资源
+
+#### 文章
+
+#### 视频
