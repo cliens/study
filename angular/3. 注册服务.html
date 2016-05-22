@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="demo">
+<div ng-controller="helloDemo">
+    hello,{{msg}}!
+</div>
+</body>
+<script src="../node_modules/angular/angular.js"></script>
+</html>
+<script>
+    var demoModule = angular.module('demo',[]);
+    demoModule.controller('helloDemo',['$scope','helloProvider', 'helloFactory', 'helloService','helloValue', 'helloConstant',
+        function($scope, helloProvider, helloFactory, helloService, helloValue, helloConstant) {
+        $scope.msg = 'angular';
+//        helloProvider.sayHello();
+
+//        helloProvider.open();
+        helloFactory.sayHello();
+        helloService.sayHello();
+        console.log('hello ' + helloValue);
+        console.log('hello ' + helloConstant);
+        debugger;   // 3
+    }])
+            // 内部创建默认配置
+//            .provider('helloProvider', function() { // 1
+//                var name = 'cliens';
+//
+//                this.$get = function(){
+//                    return {
+//                        sayHello: function() {
+//                            console.log('hello ' + name);
+//                        }
+//                    }
+//                }
+//            })
+
+            // 注入其它依赖服务
+//            .provider('helloProvider', function() { // 1
+//                var url = 'http://www.baidu.com/';
+//
+//                this.$get = ['$http', function($http) {
+//                    return {
+//                        open: function() {
+//                            $http.get(url);
+//                        }
+//                    }
+//                }]
+//            })
+
+            // 第二参数为对象
+            .provider('helloProvider',{
+                $get:['$http', function($http) {
+                    return {
+                        open: function() {
+                            $http.get('http://www.baidu.com');
+                        }
+                    }
+                }]
+            })
+
+            .factory('helloFactory', function() {
+                var name = 'Factory!';
+                return {
+                    sayHello: function() {
+                        console.log('hello ' + name);
+                    }
+                }
+            })
+
+            .service('helloService', function() {
+                var that = this;
+                this.name = 'Service!';
+                return {
+                    sayHello: function() {
+                        console.log('hello ' + that.name);
+                    }
+                }
+            })
+            .value('helloValue', 'Value!')
+            .constant('helloConstant', 'Constant!')
+            .decorator('helloValue',['$delegate', function($delegate) {
+//                return 'Delegate!(HelloValue已经被decorator改写)';
+                $delegate = 'Delegate!(HelloValue已经被decorator改写)';
+                return $delegate;
+            }])
+
+</script>
