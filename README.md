@@ -26,5 +26,6 @@
 ## Angular学习资源
 
 #### 文章
+- [ngnice](http://www.ngnice.com)
 
 #### 视频
