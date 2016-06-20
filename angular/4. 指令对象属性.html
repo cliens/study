@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../node_modules/angular/angular.js"></script>
+    <style>
+        h3 { text-indent: 1em;}
+    </style>
+</head>
+<body ng-app="demo" >
+<div ng-controller="directiveDemoCtrl">
+
+
+<div>{{hello}}</div>
+<h3>multi</h3>
+    <div ng-multi-start>multi 标红开始</div>
+    <div>我是内容1</div>
+    <div>我是内容2</div>
+    <div ng-multi-end>multi 标红结束</div>
+    <h3>priority指令优先级（默认为0）</h3>
+    <div priority-first priority-second>看看优先级的执行</div>
+    <h3>terminal(priority最大,且terminal为true，只有该指令会执行)</h3>
+    <div priority-first priority-second>看看优先级的执行</div>
+23232242
+    <!--<div priority-first priority-second>指令优先级</div>-->
+</div>
+
+<script>
+
+        var demoModule = angular.module('demo',[]);
+
+        demoModule.controller('directiveDemoCtrl', function($scope) {
+            $scope.hello = '指令属性练习:';
+            $scope.mutiElement = '这是一个属性multiElement示例';
+            $scope.priority1 = '这是一个属性priority（1）示例';
+            $scope.priority2 = '这是一个属性priority（2）示例';
+        });
+
+//        可以参考 ng-if、ng-repeat、ng-show、ng-hide
+        demoModule.directive('ngMulti', function() {
+            return {
+                multiElement: true,
+                restrict: 'A',
+                link: function(scope, eles, attr) {
+//                    console.log(typeof eles); // object
+                    eles = Array.prototype.slice.call(eles);
+                    eles.forEach(function(ele) {
+                        if(ele.nodeType === 1){
+                            ele.style.color = '#f00';
+                        }
+                    });
+//                    console.log(scope, eles, attr)
+                }
+            }
+        });
+
+        demoModule.directive('priorityFirst', function() {
+            return {
+                restrict: 'A',
+                priority:2,
+                terminal: true,
+                link: function(scope, eles, attr) {
+                    eles = Array.prototype.slice.call(eles);
+                    eles[0].style.color = '#0f0';
+//                    console.log(scope, eles, attr);
+//                    console.log('priorityFirst执行');
+                }
+            }
+        });
+        demoModule.directive('prioritySecond', function() {
+            return {
+                restrict: 'A',
+                priority:1,
+//                terminal: true,
+                link: function(scope, eles, attr) {
+                    eles = Array.prototype.slice.call(eles);
+                    eles[0].style.color = '#00f';
+//                    console.log('prioritySecond执行');
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
