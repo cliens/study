@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../node_modules/angular/angular.js"></script>
+    <style>
+        button.submit { display: inline-block; padding: 5px 10px;}
+        input { display: inline-block; padding: 5px 10px; width: 80%;}
+    </style>
+</head>
+<body ng-app="demo" ng-controller="validCtrl">
+<form name="myForm">
+    <input type="text" name="textName" ng-model="text" ng-required ng-maxlength="20" ng-minlength="5" ng-pattern="/^\d/"/>
+</form>
+<h2>myForm: </h2>
+<p>{{myForm}}</p>
+<h2>myForm.textName: </h2>
+<p>{{myForm.textName}}</p>
+<p ng-if="myForm.textName.$error.maxlength || myForm.textName.$error.minlength">请输入正确的长度（5-20）</p>
+<button class="submit">提交</button>
+</body>
+</html>
+<script>
+    var demoApp = angular.module('demo', []);
+
+    demoApp.controller('validCtrl', function($scope) {
+        $scope.text = 'please input text…';
+    })
+</script>
