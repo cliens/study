@@ -22,6 +22,8 @@
     <div priority-first priority-second>看看优先级的执行</div>
     <h3>terminal(priority最大,且terminal为true，只有该指令会执行)</h3>
     <div priority-first priority-second>看看优先级的执行</div>
+    <h3>'isolate' scope</h3>
+    <isolate-scope name="cliens" title="angular" hello="multiElement" count="sum(name)"/>
 23232242
     <!--<div priority-first priority-second>指令优先级</div>-->
 </div>
@@ -29,12 +31,15 @@
 <script>
 
         var demoModule = angular.module('demo',[]);
-
         demoModule.controller('directiveDemoCtrl', function($scope) {
             $scope.hello = '指令属性练习:';
             $scope.mutiElement = '这是一个属性multiElement示例';
             $scope.priority1 = '这是一个属性priority（1）示例';
             $scope.priority2 = '这是一个属性priority（2）示例';
+            $scope.count = 0;
+            $scope.sum = function(num){
+                return $scope.count += num;
+            };
         });
 
 //        可以参考 ng-if、ng-repeat、ng-show、ng-hide
@@ -74,6 +79,33 @@
                 priority:1,
 //                terminal: true,
                 link: function(scope, eles, attr) {
+                    eles = Array.prototype.slice.call(eles);
+                    eles[0].style.color = '#00f';
+//                    console.log('prioritySecond执行');
+                }
+            }
+        });
+        demoModule.directive('isolateScope', function() {
+            return {
+                restrict: 'E',
+                scope: {
+                  name: '@',
+                  hello: '=hello',  // !注意： 指令元素属性，不能使用{{}}语法，直接赋值即可。 父级
+                  noHello: '=?',  // 指令元素属性不设置，局部作用域，不会出现该属性
+                  count: '&'
+                },
+                template: function() {
+                   return '<div><ul>' +
+                           '<li>‘@’：hello {{name}}</li>' +
+                           '<li>‘=’：hello {{hello}}</li>' +
+                           '<li>‘&’：sum: {{count}}</li>' +
+                           '</ul></div>'
+                },
+                link: function(scope, eles, attr) {
+                    scope.num = 123;
+                    console.log(scope,'scope');
+                    scope.count(scope);
+//                    scope.hello = '已修改hello!';
                     eles = Array.prototype.slice.call(eles);
                     eles[0].style.color = '#00f';
 //                    console.log('prioritySecond执行');
