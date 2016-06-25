@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../node_modules/angular/angular.js"></script>
+</head>
+<body ng-app="demo" ng-controller="demoCtrl">
+{{greet}}
+<h2></h2>
+</body>
+</html>
+<script>
+    var demoApp = angular.module('demo', []);
+
+    demoApp.provider('test1', {
+        use: 'provider Object',
+        $get: function() {
+            console.log(this, 'test1 $get has been invoke on injector.');
+            return "Object1";
+        }
+    });
+
+    demoApp.provider('test2', function() {
+        this.use = 'Provider Constructor';
+        console.log(this, 'test2 provider Constructor has been initialize after app run.');     // app 运行就会被执行；
+        this.$get = function() {
+            console.log(this, 'test2 $get has been invoke on injector.'); //  服务被调用到的时候才会被执行；
+            return "Object2";
+        };
+    });
+
+    demoApp.factory('test3', function() {
+        this.use = "factory";
+        console.log(this, 'test3 provider factory has been invoke on injector.');
+        return "Object3";
+    });
+
+    demoApp.service('test4', function() {
+        this.use = 'service';
+        console.log(this,'test4 constructor has been initialize on injector.');
+        return {say: 'hello!'}; //   如果返回值不是对象类型或未显式指定返回值，将默认返回对该构造函数的实例化对象。
+    });
+
+    // 单纯的定义一个值
+    demoApp.value('test5', function() {
+        this.use = 'Value';
+        console.log(this,'test5 will be run on invoke. this is window.so do not give this value, never!');
+    });
+
+    // 单纯的定义一个值
+    demoApp.constant('test6', function() {
+        this.use = 'Constant';
+        console.log(this,'test6 will be run on invoke.this is window.so do not give this value, never!');
+    });
+
+
+    // 最先注入的服务会被最先实例化
+    // this指向都是 实例化的provider对象。当Provider为对象时候，this指向该对象。
+    demoApp.controller('demoCtrl', ['$scope', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6',
+        function($scope, test1, test2, test3, test4, test5, test6) {
+        console.log(test1);
+        console.log(test2);
+        console.log(test3);
+        console.log(test4);
+        console.log(test5);
+        console.log(test5());
+        console.log(test6);
+        console.log(test6());
+        $scope.greet = 'demoApp 已运行。';
+    }])
+</script>
