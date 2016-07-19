@@ -31,7 +31,10 @@
 <script>
 
         var demoModule = angular.module('demo',[]);
-        demoModule.controller('directiveDemoCtrl', function($scope) {
+        demoModule.controller('directiveDemoCtrl', function($scope, $controller) {
+            console.log(
+                    $controller(function() {})
+            );
             $scope.hello = '指令属性练习:';
             $scope.mutiElement = '这是一个属性multiElement示例';
             $scope.priority1 = '这是一个属性priority（1）示例';
@@ -103,7 +106,7 @@
                 },
                 link: function(scope, eles, attr) {
                     scope.num = 123;
-                    console.log(scope,'scope');
+//                    console.log(scope,'scope');
                     scope.count(scope);
 //                    scope.hello = '已修改hello!';
                     eles = Array.prototype.slice.call(eles);
